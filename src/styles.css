@@ -253,6 +253,9 @@ html { scroll-padding-top: 24px; }
 .calc__pontos li { display: grid; gap: 4px; align-content: start; }
 .calc__pontos strong { font-family: var(--display); font-size: 18px; line-height: 1.15; }
 .calc__pontos span { font-size: 15px; color: color-mix(in srgb, currentColor 72%, transparent); }
+.calc__pontos--escuro { display: none; } /* só no celular: dentro do cartão escuro */
+.calc__pontos--escuro { border-top-color: rgba(246, 241, 231, 0.18); }
+.calc__pontos--escuro span { color: rgba(246, 241, 231, 0.72); }
 .calc__resultado {
   background: var(--grafite);
   color: var(--fundo);
@@ -480,6 +483,8 @@ html { scroll-padding-top: 24px; }
   .calc__grade { grid-template-columns: minmax(0, 1fr); }
   .calc__entrada, .calc__resultado { padding: 24px 16px; }
   .calc__pontos { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .calc__pontos--claro { display: none; }
+  .calc__pontos--escuro { display: grid; margin-top: 8px; }
   .calc__duas { gap: 16px; }
   .calc__num { font-size: 22px; }
   .solucao, .monitor, .parceiro, .fim { grid-template-columns: minmax(0, 1fr); gap: 40px; padding-top: 64px; padding-bottom: 64px; }

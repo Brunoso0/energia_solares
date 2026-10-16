@@ -4,7 +4,7 @@ import logosParceiros from "virtual:logos-parceiros"; // tudo que está em publi
 const TELEFONE = "5577999024800";
 const wa = (texto) => `https://wa.me/${TELEFONE}?text=${encodeURIComponent(texto)}`;
 const MSG_CLIENTE = "Olá! Quero simular minha economia na conta de energia com a Solares.";
-const MSG_PARCEIRO = "Olá! Tenho uma usina de 30 a 75 kWp e quero saber como locar para a Solares.";
+const MSG_PARCEIRO = "Olá! Tenho uma usina de 10 a 75 kWp e quero saber como locar para a Solares.";
 
 const limitar = (v, a, b) => (v < a ? a : v > b ? b : v);
 const trecho = (p, a, b) => limitar((p - a) / (b - a), 0, 1);
@@ -194,8 +194,8 @@ function Abertura() {
         <div className="sol" data-fx-mouse="16" />
       </div>
       <div className="abertura__texto">
-        <p className="rotulo" data-fx="surgir">Desconto de até 30% na conta de energia</p>
-        <h1 data-fx="palavras">Sua energia pode custar menos.</h1>
+        <p className="rotulo" data-fx="surgir">Sua energia pode custar menos</p>
+        <h1 data-fx="palavras">Desconto de até 30% na sua conta de energia.</h1>
         <p className="lead" data-fx="subir" data-fx-atraso="500">
           Economize sem precisar comprar sua própria usina solar. Créditos em energia e locação de usina, com
           planejamento para o seu consumo, monitoramento e manutenção especializada.
@@ -396,7 +396,7 @@ function Calculadora() {
             <span>R$ 5.000</span>
             <span>R$ 10.000+</span>
           </div>
-          <ul className="calc__pontos">
+          <ul className="calc__pontos calc__pontos--claro">
             <li><strong>Sem comprar usina</strong><span>Sem investimento na compra da usina.</span></li>
             <li><strong>Análise do consumo</strong><span>Proposta personalizada para o seu perfil.</span></li>
             <li><strong>Suporte especializado</strong><span>Acompanhamento comercial e monitoramento.</span></li>
@@ -421,14 +421,15 @@ function Calculadora() {
             </div>
           </div>
           <a href="#simular" className="botao calc__cta" onClick={pedir}>Quero esse desconto</a>
+          <ul className="calc__pontos calc__pontos--escuro">
+            <li><strong>Sem comprar usina</strong><span>Sem investimento na compra da usina.</span></li>
+            <li><strong>Análise do consumo</strong><span>Proposta personalizada para o seu perfil.</span></li>
+            <li><strong>Suporte especializado</strong><span>Acompanhamento comercial e monitoramento.</span></li>
+          </ul>
         </div>
       </div>
 
-      <p className="nota calc__nota">
-        * Estimativa simples sobre o valor informado, considerando o desconto máximo de até 30%. Não é proposta. A
-        economia real depende da análise de consumo, da distribuidora, da disponibilidade de créditos e das condições
-        contratuais.
-      </p>
+      <p className="lead calc__nota">Com a Solares, você economiza até 30% no custo da energia!</p>
     </section>
   );
 }
@@ -711,7 +712,7 @@ function Parceiro() {
       </div>
       <div className="parceiro__texto">
         <p className="rotulo" data-fx="surgir">Seja parceiro da Solares</p>
-        <h2 data-fx="subir">Tem uma usina de 30 a 75 kWp?</h2>
+        <h2 data-fx="subir">Tem uma usina de 10 a 75 kWp?</h2>
         <p className="lead" data-fx="subir" data-fx-atraso="120">
           Se você é proprietário de usina e tem interesse em locar seu ativo para a Solares, fale com a nossa equipe.
         </p>
