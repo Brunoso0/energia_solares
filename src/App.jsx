@@ -119,14 +119,45 @@ function ZapFlutuante() {
 
 /* ---------- cabeçalho ---------- */
 
+const MENU = [
+  ["calculadora", "Calculadora"],
+  ["solucao", "Solução"],
+  ["para-quem", "Para quem"],
+  ["como-funciona", "Como funciona"],
+  ["monitoramento", "Monitoramento"],
+  ["parceiro", "Seja parceiro"],
+];
+
 function Cabecalho() {
+  const [ativo, setAtivo] = useState("");
+
+  // destaca no menu a seção que está no meio da tela
+  useEffect(() => {
+    // observa todas as cenas: as que não estão no menu (abertura, pico, formulário) limpam o destaque
+    const alvos = [...document.querySelectorAll("[data-cena]")];
+    const noMenu = new Set(MENU.map(([id]) => id));
+    const obs = new IntersectionObserver(
+      (entradas) =>
+        entradas.forEach((e) => {
+          if (e.isIntersecting) setAtivo(noMenu.has(e.target.id) ? e.target.id : "");
+        }),
+      { rootMargin: "-45% 0px -45% 0px" }
+    );
+    alvos.forEach((a) => obs.observe(a));
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <header className="cab">
       <a href="#topo" className="cab__logo" aria-label="Solares Energia Corporativa">
         <img src="/logo.png" alt="Solares Energia Corporativa" />
       </a>
       <nav className="cab__nav" aria-label="Principal">
-        <a href="#parceiro" className="cab__link">Seja parceiro</a>
+        {MENU.map(([id, rotulo]) => (
+          <a key={id} href={`#${id}`} className={`cab__link ${ativo === id ? "is-ativo" : ""}`}>
+            {rotulo}
+          </a>
+        ))}
         <a href="#simular" className="botao botao--pequeno">Simular economia</a>
       </nav>
     </header>
@@ -277,9 +308,111 @@ function Pico() {
 
 /* ---------- cena 2b · a solução ---------- */
 
+/* ---------- cena 2a · calculadora de economia ----------
+   O único número real da Solares é o desconto de "até 30%". A conta usa esse teto
+   e todos os valores aparecem como "de até", nunca como promessa. */
+
+const DESCONTO_MAX = 0.3;
+const reais = (v) => `R$ ${Math.round(v).toLocaleString("pt-BR")}`;
+const FAIXA = { min: 150, max: 10000 };
+
+function Calculadora() {
+  const [valor, setValor] = useState(1000);
+
+  const mudarTexto = (e) => {
+    const n = Number(e.target.value.replace(/\D/g, ""));
+    setValor(Math.min(n, 1000000));
+  };
+
+  const economiaMes = valor * DESCONTO_MAX;
+  const nova = valor - economiaMes;
+  const progresso = limitar((valor - FAIXA.min) / (FAIXA.max - FAIXA.min), 0, 1) * 100;
+
+  // leva o valor calculado para o campo do formulário de simulação
+  const pedir = () => window.dispatchEvent(new CustomEvent("solares:valor", { detail: valor }));
+
+  return (
+    <section id="calculadora" className="calc" data-cena="1" data-fx-fundo="#F6F1E7" data-fx-tinta="#16191D">
+      <div className="calc__cab">
+        <p className="rotulo" data-fx="surgir">Calculadora de economia</p>
+        <h2 data-fx="subir">Descubra quanto você pode economizar.</h2>
+        <p className="lead" data-fx="subir" data-fx-atraso="120">
+          Arraste a barra ou digite o valor médio da sua conta de energia e veja uma estimativa com o desconto de até
+          30% da Solares.
+        </p>
+      </div>
+
+      <div className="calc__grade">
+        <div className="calc__entrada" data-fx="esquerda">
+          <label className="calc__rotulo" htmlFor="calc-valor">Sua conta de luz atual (por mês)</label>
+          <div className="calc__valor">
+            <span aria-hidden="true">R$</span>
+            <input
+              id="calc-valor"
+              type="text"
+              inputMode="numeric"
+              autoComplete="off"
+              value={valor ? valor.toLocaleString("pt-BR") : ""}
+              placeholder="0"
+              onChange={mudarTexto}
+            />
+          </div>
+          <input
+            className="calc__barra"
+            type="range"
+            min={FAIXA.min}
+            max={FAIXA.max}
+            step="10"
+            value={limitar(valor, FAIXA.min, FAIXA.max)}
+            onChange={(e) => setValor(Number(e.target.value))}
+            style={{ "--p": `${progresso}%` }}
+            aria-label="Valor médio da sua conta de energia"
+          />
+          <div className="calc__escala" aria-hidden="true">
+            <span>R$ 150</span>
+            <span>R$ 5.000</span>
+            <span>R$ 10.000+</span>
+          </div>
+          <ul className="calc__pontos">
+            <li><strong>Sem comprar usina</strong><span>Sem investimento na compra da usina.</span></li>
+            <li><strong>Análise do consumo</strong><span>Proposta personalizada para o seu perfil.</span></li>
+            <li><strong>Suporte especializado</strong><span>Acompanhamento comercial e monitoramento.</span></li>
+          </ul>
+        </div>
+
+        <div className="calc__resultado" data-fx="direita" aria-live="polite">
+          <p className="calc__selo">Estimativa com desconto de até 30%</p>
+          <p className="calc__rot">Nova conta estimada, a partir de</p>
+          <p className="calc__nova mono">
+            <span>R$</span>
+            <strong>{nova.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong>
+          </p>
+          <div className="calc__duas">
+            <div>
+              <p className="calc__rot">Economia mensal de até</p>
+              <p className="calc__num mono">{reais(economiaMes)}</p>
+            </div>
+            <div>
+              <p className="calc__rot">Economia anual de até</p>
+              <p className="calc__num mono">{reais(economiaMes * 12)}</p>
+            </div>
+          </div>
+          <a href="#simular" className="botao calc__cta" onClick={pedir}>Quero esse desconto</a>
+        </div>
+      </div>
+
+      <p className="nota calc__nota">
+        * Estimativa simples sobre o valor informado, considerando o desconto máximo de até 30%. Não é proposta. A
+        economia real depende da análise de consumo, da distribuidora, da disponibilidade de créditos e das condições
+        contratuais.
+      </p>
+    </section>
+  );
+}
+
 function Solucao() {
   return (
-    <section className="solucao" data-cena="2" data-fx-fundo="#F6F1E7" data-fx-tinta="#16191D">
+    <section id="solucao" className="solucao" data-cena="2" data-fx-fundo="#F6F1E7" data-fx-tinta="#16191D">
       <div className="solucao__titulo">
         <p className="rotulo" data-fx="surgir">Créditos em Energia · Locação de Usina</p>
         <h2 data-fx="subir">Energia solar sem precisar comprar uma usina.</h2>
@@ -322,7 +455,7 @@ const PERFIS = [
 
 function ParaQuem() {
   return (
-    <section className="quem" data-cena="3" data-fx-fundo="#F6F1E7" data-fx-tinta="#16191D">
+    <section id="para-quem" className="quem" data-cena="3" data-fx-fundo="#F6F1E7" data-fx-tinta="#16191D">
       <div className="quem__cab">
         <h2 data-fx="esquerda">Para quem é essa solução?</h2>
       </div>
@@ -354,7 +487,7 @@ const PASSOS = [
 
 function ComoFunciona() {
   return (
-    <section className="como" data-cena="4" data-fx-fixa data-fx-altura="4" data-fx-etapas="4" data-fx-fundo="#F6F1E7" data-fx-tinta="#16191D">
+    <section id="como-funciona" className="como" data-cena="4" data-fx-fixa data-fx-altura="4" data-fx-etapas="4" data-fx-fundo="#F6F1E7" data-fx-tinta="#16191D">
       <div className="fx-palco como__palco">
         <p className="rotulo como__rotulo">Como funciona?</p>
         <div className="como__etapas">
@@ -454,7 +587,7 @@ function Monitoramento() {
   }, []);
 
   return (
-    <section ref={secao} className="monitor" data-cena="5" data-fx-fundo="#16191D" data-fx-tinta="#F6F1E7">
+    <section id="monitoramento" ref={secao} className="monitor" data-cena="5" data-fx-fundo="#16191D" data-fx-tinta="#F6F1E7">
       <div className="monitor__texto">
         <p className="rotulo rotulo--claro" data-fx="surgir">Manutenção e monitoramento</p>
         <h2 data-fx="subir">A Solares cuida da usina. Você cuida do seu negócio.</h2>
@@ -532,6 +665,13 @@ function Fechamento() {
   const [campos, setCampos] = useState({ nome: "", cidade: "", valor: "", distribuidora: "", telefone: "" });
   const mudar = (e) => setCampos({ ...campos, [e.target.name]: e.target.value });
 
+  // a calculadora envia o valor da conta para este campo
+  useEffect(() => {
+    const receber = (e) => setCampos((c) => ({ ...c, valor: String(e.detail) }));
+    window.addEventListener("solares:valor", receber);
+    return () => window.removeEventListener("solares:valor", receber);
+  }, []);
+
   function enviar(e) {
     e.preventDefault();
     const texto =
@@ -574,20 +714,45 @@ function Fechamento() {
         <button type="submit" className="botao botao--bloco">Quero simular minha economia</button>
         <p className="nota nota--clara">Ao enviar, abrimos o WhatsApp com as suas informações preenchidas.</p>
       </form>
-
-      <footer className="rodape">
-        <div className="rodape__logo"><img src="/logo.png" alt="Solares Energia Corporativa" /></div>
-        <div>
-          <p>Energia renovável, planejamento e atendimento especializado.</p>
-          <p>Atendemos toda a Bahia.</p>
-        </div>
-        <div>
-          <p><a href="tel:+5577999024800">(77) 99902-4800</a></p>
-          <p>Rua Maranhão, 200, Jardim Brasil, Brumado/BA</p>
-        </div>
-        <p className="rodape__copy">www.solarescorporativa.com.br © 2026. Todos os direitos reservados.</p>
-      </footer>
     </section>
+  );
+}
+
+/* ---------- rodapé ----------
+   Padrão: faixa clara com as logos originais (transparentes, sem placa).
+   Para comparar com o cliente: abrir com ?logos=claras mostra o rodapé escuro
+   com as versões em off-white. */
+
+function Rodape() {
+  const claras = new URLSearchParams(window.location.search).get("logos") === "claras";
+  return (
+    <footer className={`rodape ${claras ? "rodape--escuro" : ""}`}>
+      <div className="rodape__logos">
+        <img
+          className="rodape__logo-energia"
+          src={claras ? "/logo-claro.png" : "/logo.png"}
+          width="611"
+          height="400"
+          alt="Solares Energia Corporativa"
+        />
+        <img
+          className="rodape__logo-incorp"
+          src={claras ? "/logo-completo-claro.png" : "/logo-completo.png"}
+          width="1236"
+          height="960"
+          alt="Solares Incorporadora"
+        />
+      </div>
+      <div>
+        <p>Energia renovável, planejamento e atendimento especializado.</p>
+        <p>Atendemos toda a Bahia.</p>
+      </div>
+      <div>
+        <p><a href="tel:+5577999024800">(77) 99902-4800</a></p>
+        <p>Rua Maranhão, 200, Jardim Brasil, Brumado/BA</p>
+      </div>
+      <p className="rodape__copy">www.solarescorporativa.com.br © 2026. Todos os direitos reservados.</p>
+    </footer>
   );
 }
 
@@ -600,12 +765,14 @@ export default function App() {
       <main>
         <Abertura />
         <Pico />
+        <Calculadora />
         <Solucao />
         <ParaQuem />
         <ComoFunciona />
         <Monitoramento />
         <Parceiro />
         <Fechamento />
+        <Rodape />
       </main>
     </>
   );

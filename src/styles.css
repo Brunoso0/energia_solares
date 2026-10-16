@@ -90,7 +90,13 @@ p { margin: 0; }
 }
 .cab__logo img { height: 52px; width: auto; }
 .cab__nav { display: flex; align-items: center; gap: 24px; }
-.cab__link { font-size: 15px; font-weight: 500; text-decoration: none; }
+.cab__link {
+  font-size: 15px; font-weight: 500; text-decoration: none; padding: 6px 0;
+  background: linear-gradient(var(--ouro), var(--ouro)) left bottom / 0 3px no-repeat;
+  transition: background-size 0.3s ease;
+}
+.cab__link:hover, .cab__link.is-ativo { background-size: 100% 3px; }
+html { scroll-padding-top: 24px; }
 
 /* ---------- fatura lateral (assinatura) ---------- */
 .fatura-lado {
@@ -208,6 +214,64 @@ p { margin: 0; }
 .nota--clara { color: color-mix(in srgb, currentColor 66%, transparent); }
 .pico__texto .nota { opacity: 0; }
 
+/* ---------- 2a · calculadora ---------- */
+.calc { padding: 104px var(--gutter); overflow-x: clip; }
+.calc__cab { display: grid; gap: 24px; justify-items: start; max-width: 760px; margin-bottom: 64px; }
+.calc__grade { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px; align-items: stretch; }
+.calc__entrada {
+  background: var(--superficie);
+  border-radius: 14px;
+  padding: 40px;
+  display: grid;
+  gap: 24px;
+  align-content: start;
+  box-shadow: 0 2px 14px rgba(20, 18, 14, 0.08);
+}
+.calc__rotulo { font-size: 18px; font-weight: 600; }
+.calc__valor { display: flex; align-items: baseline; gap: 12px; font-family: var(--display); font-weight: 800; line-height: 1; font-size: clamp(44px, 6vw, 72px); }
+.calc__valor span { font-size: 0.5em; opacity: 0.6; }
+.calc__valor input {
+  font: inherit; color: inherit; width: 100%; min-width: 0;
+  background: transparent; border: 0; border-bottom: 3px solid var(--linha); border-radius: 0; padding: 0 0 8px;
+  letter-spacing: -0.02em;
+}
+.calc__valor input:focus { outline: 0; border-bottom-color: var(--ouro); }
+.calc__barra {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 8px; border-radius: 4px; margin: 8px 0 0; cursor: pointer;
+  background: linear-gradient(to right, var(--ouro) 0 var(--p, 0%), var(--linha) var(--p, 0%) 100%);
+}
+.calc__barra::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 28px; height: 28px; border-radius: 50%; background: var(--grafite); border: 4px solid var(--ouro);
+}
+.calc__barra::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--grafite); border: 4px solid var(--ouro); }
+.calc__barra:focus-visible { outline: 3px solid var(--grafite); outline-offset: 6px; }
+.calc__escala { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 13px; opacity: 0.7; margin-top: -8px; }
+.calc__pontos { list-style: none; margin: 16px 0 0; padding: 24px 0 0; border-top: 1px solid var(--linha); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.calc__pontos li { display: grid; gap: 4px; align-content: start; }
+.calc__pontos strong { font-family: var(--display); font-size: 18px; line-height: 1.15; }
+.calc__pontos span { font-size: 15px; color: color-mix(in srgb, currentColor 72%, transparent); }
+.calc__resultado {
+  background: var(--grafite);
+  color: var(--fundo);
+  border-radius: 14px;
+  padding: 40px;
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+.calc__selo { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ouro); }
+.calc__rot { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; opacity: 0.75; }
+.calc__nova { display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; line-height: 1; }
+.calc__nova span { font-size: 24px; opacity: 0.8; }
+.calc__nova strong { font-family: var(--display); font-weight: 800; font-size: clamp(48px, 6vw, 80px); letter-spacing: -0.02em; }
+.calc__duas { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; border-top: 1px solid rgba(246, 241, 231, 0.18); padding-top: 24px; margin-bottom: 8px; }
+.calc__duas > div { display: grid; gap: 8px; }
+.calc__num { font-size: 28px; font-weight: 500; color: var(--ouro); }
+.calc__cta { text-align: center; }
+.calc__nota { margin-top: 24px; }
+
 /* ---------- 2b · solução ---------- */
 .solucao {
   padding: 104px var(--gutter);
@@ -216,6 +280,7 @@ p { margin: 0; }
   gap: 64px;
   align-items: start;
 }
+.solucao { overflow-x: clip; } /* os itens entram deslocados 48px à direita e não podem alargar a página */
 .solucao__titulo { display: grid; gap: 24px; justify-items: start; }
 .solucao__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; align-self: center; }
 .solucao__lista li { padding: 16px 0 16px 40px; border-top: 1px solid var(--linha); position: relative; font-size: 18px; }
@@ -281,7 +346,7 @@ p { margin: 0; }
 
 /* ---------- 7 · fechamento ---------- */
 .fim {
-  padding: 104px var(--gutter) 40px;
+  padding: 104px var(--gutter);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
   gap: 64px;
@@ -297,18 +362,20 @@ p { margin: 0; }
 .campo input:focus { outline: 2px solid var(--ouro); outline-offset: 1px; }
 .campo input::placeholder { color: rgba(246, 241, 231, 0.4); }
 .rodape {
-  grid-column: 1 / -1;
-  margin-top: 64px;
-  padding-top: 40px;
-  border-top: 1px solid rgba(246, 241, 231, 0.16);
+  padding: 64px var(--gutter) 40px;
+  background: var(--fundo);
+  color: var(--grafite);
   display: grid;
   grid-template-columns: auto 1fr 1fr;
   gap: 40px;
   align-items: center;
   font-size: 15px;
 }
-.rodape__logo { background: var(--fundo); padding: 8px 16px; border-radius: 10px; }
-.rodape__logo img { height: 56px; width: auto; }
+.rodape--escuro { background: var(--grafite); color: var(--fundo); border-top: 1px solid rgba(246, 241, 231, 0.16); }
+/* as duas empresas juntas: no desktop uma abaixo da outra, no celular lado a lado */
+.rodape__logos { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
+.rodape__logo-energia { height: 72px; width: auto; }
+.rodape__logo-incorp { height: 104px; width: auto; }
 .rodape a { text-underline-offset: 4px; }
 .rodape__copy { grid-column: 1 / -1; opacity: 0.6; font-size: 13px; }
 
@@ -338,15 +405,20 @@ p { margin: 0; }
 .zap:focus-visible { outline: 3px solid var(--grafite); outline-offset: 3px; }
 
 /* o cartão da fatura lateral ocupa a margem direita no desktop */
-.solucao, .quem, .monitor, .parceiro, .fim, .como__palco { padding-right: calc(var(--gutter) + var(--lado)); }
+.calc, .solucao, .quem, .monitor, .parceiro, .fim, .rodape, .como__palco { padding-right: calc(var(--gutter) + var(--lado)); }
 
 /* seções escuras com fundo próprio: nada de texto claro sobre bege enquanto a página escurece */
 .pico, .monitor, .fim { background: var(--grafite); color: var(--fundo); }
-.abertura, .solucao, .quem, .como, .parceiro { background: var(--fundo); color: var(--grafite); }
+.abertura, .calc, .solucao, .quem, .como, .parceiro { background: var(--fundo); color: var(--grafite); }
 .fim__form .nota { color: rgba(246, 241, 231, 0.7); }
 
 /* ---------- tablet / celular ---------- */
+@media (max-width: 1040px) {
+  .cab__link { display: none; } /* com 6 itens o menu não cabe ao lado da logo */
+}
+
 @media (max-width: 1100px) {
+  .cab__nav { gap: 16px; }
   .fatura-lado {
     right: 12px; top: auto; bottom: 12px; translate: none;
     width: auto; padding: 8px 12px; display: flex; align-items: center; gap: 12px;
@@ -374,6 +446,13 @@ p { margin: 0; }
   .pico__total strong { font-size: 28px; }
   .pico__selo { right: -8px; top: -28px; width: 104px; }
   .pico__selo strong { font-size: 36px; }
+  .calc { padding-top: 64px; padding-bottom: 64px; }
+  .calc__cab { margin-bottom: 40px; }
+  .calc__grade { grid-template-columns: minmax(0, 1fr); }
+  .calc__entrada, .calc__resultado { padding: 24px 16px; }
+  .calc__pontos { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .calc__duas { gap: 16px; }
+  .calc__num { font-size: 22px; }
   .solucao, .monitor, .parceiro, .fim { grid-template-columns: minmax(0, 1fr); gap: 40px; padding-top: 64px; padding-bottom: 64px; }
   .monitor { min-height: 0; }
   .quem__grade { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
@@ -382,6 +461,9 @@ p { margin: 0; }
   .como__etapa { grid-template-columns: minmax(0, 1fr); gap: 8px; }
   .como__num { font-size: 96px; }
   .rodape { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .rodape__logos { flex-direction: row; align-items: center; justify-content: center; gap: 24px; }
+  .rodape__logo-energia { height: 64px; }
+  .rodape__logo-incorp { height: 88px; }
   .fim__form { padding: 24px 16px; }
 }
 

@@ -79,6 +79,32 @@
   .pico__selo span { font-size: calc(18px * var(--k)); }
   .pico__selo strong { font-size: clamp(40px, 5vw, calc(64px * var(--k))); }
 
+  .calc { padding-block: calc(104px * var(--k)); }
+  .calc__cab { gap: calc(24px * var(--k)); max-width: calc(760px * var(--k)); margin-bottom: calc(64px * var(--k)); }
+  .calc__grade { gap: calc(24px * var(--k)); }
+  .calc__entrada { border-radius: calc(14px * var(--k)); padding: calc(40px * var(--k)); gap: calc(24px * var(--k)); }
+  .calc__rotulo { font-size: calc(18px * var(--k)); }
+  .calc__valor { gap: calc(12px * var(--k)); font-size: clamp(44px, 6vw, calc(72px * var(--k))); }
+  .calc__valor input { border-bottom-width: calc(3px * var(--k)); padding-bottom: calc(8px * var(--k)); }
+  .calc__barra { height: calc(8px * var(--k)); border-radius: calc(4px * var(--k)); margin-top: calc(8px * var(--k)); }
+  .calc__barra::-webkit-slider-thumb { width: calc(28px * var(--k)); height: calc(28px * var(--k)); border-width: calc(4px * var(--k)); }
+  .calc__barra::-moz-range-thumb { width: calc(20px * var(--k)); height: calc(20px * var(--k)); border-width: calc(4px * var(--k)); }
+  .calc__escala { font-size: calc(13px * var(--k)); margin-top: calc(-8px * var(--k)); }
+  .calc__pontos { margin-top: calc(16px * var(--k)); padding-top: calc(24px * var(--k)); gap: calc(24px * var(--k)); }
+  .calc__pontos li { gap: calc(4px * var(--k)); }
+  .calc__pontos strong { font-size: calc(18px * var(--k)); }
+  .calc__pontos span { font-size: calc(15px * var(--k)); }
+  .calc__resultado { border-radius: calc(14px * var(--k)); padding: calc(40px * var(--k)); gap: calc(16px * var(--k)); }
+  .calc__selo { font-size: calc(12px * var(--k)); }
+  .calc__rot { font-size: calc(13px * var(--k)); }
+  .calc__nova { gap: calc(8px * var(--k)); margin-bottom: calc(8px * var(--k)); }
+  .calc__nova span { font-size: calc(24px * var(--k)); }
+  .calc__nova strong { font-size: clamp(48px, 6vw, calc(80px * var(--k))); }
+  .calc__duas { gap: calc(24px * var(--k)); padding-top: calc(24px * var(--k)); margin-bottom: calc(8px * var(--k)); }
+  .calc__duas > div { gap: calc(8px * var(--k)); }
+  .calc__num { font-size: calc(28px * var(--k)); }
+  .calc__nota { margin-top: calc(24px * var(--k)); }
+
   .solucao { padding-block: calc(104px * var(--k)); gap: calc(64px * var(--k)); }
   .solucao__titulo { gap: calc(24px * var(--k)); }
   .solucao__lista li { padding: calc(16px * var(--k)) 0 calc(16px * var(--k)) calc(40px * var(--k)); font-size: calc(18px * var(--k)); }
@@ -116,14 +142,15 @@
   .parceiro { padding-block: calc(104px * var(--k)); gap: calc(64px * var(--k)); }
   .parceiro__texto { gap: calc(24px * var(--k)); }
 
-  .fim { padding-top: calc(104px * var(--k)); padding-bottom: calc(40px * var(--k)); grid-template-columns: minmax(0, 1fr) minmax(0, calc(480px * var(--k))); gap: calc(64px * var(--k)); }
+  .fim { padding-top: calc(104px * var(--k)); padding-bottom: calc(104px * var(--k)); grid-template-columns: minmax(0, 1fr) minmax(0, calc(480px * var(--k))); gap: calc(64px * var(--k)); }
   .fim__texto { gap: calc(24px * var(--k)); }
   .fim__form { gap: calc(16px * var(--k)); padding: calc(32px * var(--k)); border-radius: calc(14px * var(--k)); }
   .campo { gap: calc(8px * var(--k)); font-size: calc(15px * var(--k)); }
   .campo input { font-size: calc(18px * var(--k)); border-radius: calc(8px * var(--k)); padding: calc(12px * var(--k)) calc(16px * var(--k)); }
-  .rodape { margin-top: calc(64px * var(--k)); padding-top: calc(40px * var(--k)); gap: calc(40px * var(--k)); font-size: calc(15px * var(--k)); }
-  .rodape__logo { padding: calc(8px * var(--k)) calc(16px * var(--k)); border-radius: calc(10px * var(--k)); }
-  .rodape__logo img { height: calc(56px * var(--k)); }
+  .rodape { padding-top: calc(64px * var(--k)); padding-bottom: calc(40px * var(--k)); gap: calc(40px * var(--k)); font-size: calc(15px * var(--k)); }
+  .rodape__logos { gap: calc(24px * var(--k)); }
+  .rodape__logo-energia { height: calc(72px * var(--k)); }
+  .rodape__logo-incorp { height: calc(104px * var(--k)); }
   .rodape__copy { font-size: calc(13px * var(--k)); }
 
   .zap { right: calc(24px * var(--k)); bottom: calc(24px * var(--k)); gap: calc(8px * var(--k)); padding: calc(14px * var(--k)) calc(20px * var(--k)); font-size: calc(15px * var(--k)); }
