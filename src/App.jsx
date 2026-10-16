@@ -520,6 +520,7 @@ function ComoFunciona() {
                 <h2>{titulo}</h2>
                 <p className="lead">{txt}</p>
               </div>
+              <Mascote pose="fatura" className="mascote--etapa" />
             </div>
           ))}
         </div>
@@ -677,8 +678,8 @@ function Parceiro() {
         <a href={wa(MSG_PARCEIRO)} className="botao botao--escuro" target="_blank" rel="noreferrer" data-fx="subir" data-fx-atraso="240">
           Quero locar minha usina
         </a>
+        <Mascote pose="contrato" className="mascote--parceiro" atraso={300} />
       </div>
-      <Mascote pose="contrato" className="mascote--parceiro" atraso={300} />
     </section>
   );
 }
