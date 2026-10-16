@@ -1,0 +1,162 @@
+/*!
+ * Sites Incríveis — estilos do motor
+ * © 2026 Enzo Barbatto — Sparo Automações. Uso conforme LICENCA.md.
+ *
+ * Só o necessário para os efeitos funcionarem. A identidade visual do site
+ * (fontes, cores, espaçamentos) vive no CSS da própria página.
+ */
+
+/* ---------- estados iniciais das revelações ---------- */
+
+[data-fx="surgir"],
+[data-fx="subir"],
+[data-fx="esquerda"],
+[data-fx="direita"],
+[data-fx="crescer"] {
+  opacity: 0;
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+[data-fx="subir"]    { transform: translateY(36px); }
+[data-fx="esquerda"] { transform: translateX(-48px); }
+[data-fx="direita"]  { transform: translateX(48px); }
+[data-fx="crescer"]  { transform: scale(0.92); }
+
+[data-fx].fx-em-cena {
+  opacity: 1;
+  transform: none;
+}
+
+/* palavras: cada palavra sobe individualmente quando o pai entra em cena */
+[data-fx="palavras"] .fx-palavra {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.6em);
+  transition: opacity 0.55s ease-out, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-fx="palavras"].fx-em-cena .fx-palavra {
+  opacity: 1;
+  transform: none;
+}
+[data-fx="palavras"] { opacity: 1; }
+
+/* digitar: cursor enquanto escreve */
+[data-fx="digitar"] { opacity: 1; }
+.fx-digitando::after {
+  content: "";
+  display: inline-block;
+  width: 0.08em;
+  height: 1em;
+  margin-left: 0.06em;
+  background: currentColor;
+  vertical-align: -0.12em;
+  animation: fx-cursor 0.8s steps(2, jump-none) infinite;
+}
+@keyframes fx-cursor { 50% { opacity: 0; } }
+
+[data-fx="contar"] {
+  opacity: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- cenas fixas ---------- */
+
+[data-fx-fixa] {
+  position: relative;
+}
+
+.fx-palco {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-fx="trilho"] {
+  display: flex;
+  flex-wrap: nowrap;
+  will-change: transform;
+}
+
+[data-fx="rolar-video"] {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* etapas: por padrão, cada .fx-etapa aparece na sua vez.
+   A página pode sobrescrever livremente com [data-etapa="n"]. */
+[data-fx-etapas] .fx-etapa {
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+[data-fx-etapas="2"][data-etapa="1"] .fx-etapa:nth-of-type(1),
+[data-fx-etapas="2"][data-etapa="2"] .fx-etapa:nth-of-type(2),
+[data-fx-etapas="3"][data-etapa="1"] .fx-etapa:nth-of-type(1),
+[data-fx-etapas="3"][data-etapa="2"] .fx-etapa:nth-of-type(2),
+[data-fx-etapas="3"][data-etapa="3"] .fx-etapa:nth-of-type(3),
+[data-fx-etapas="4"][data-etapa="1"] .fx-etapa:nth-of-type(1),
+[data-fx-etapas="4"][data-etapa="2"] .fx-etapa:nth-of-type(2),
+[data-fx-etapas="4"][data-etapa="3"] .fx-etapa:nth-of-type(3),
+[data-fx-etapas="4"][data-etapa="4"] .fx-etapa:nth-of-type(4),
+[data-fx-etapas="5"][data-etapa="1"] .fx-etapa:nth-of-type(1),
+[data-fx-etapas="5"][data-etapa="2"] .fx-etapa:nth-of-type(2),
+[data-fx-etapas="5"][data-etapa="3"] .fx-etapa:nth-of-type(3),
+[data-fx-etapas="5"][data-etapa="4"] .fx-etapa:nth-of-type(4),
+[data-fx-etapas="5"][data-etapa="5"] .fx-etapa:nth-of-type(5) {
+  opacity: 1;
+}
+
+/* ---------- fundo que viaja ---------- */
+
+.fx-fundo-ativo body {
+  background: var(--fx-fundo, inherit);
+  color: var(--fx-tinta, inherit);
+  transition: background 0.7s ease, color 0.7s ease;
+}
+
+/* ---------- suavidade geral ---------- */
+
+[data-fx-paralaxe],
+[data-fx-mouse],
+[data-fx-x], [data-fx-y], [data-fx-escala], [data-fx-giro], [data-fx-opacidade] {
+  will-change: transform;
+}
+
+[data-fx-mouse] {
+  transition: transform 0.25s ease-out;
+}
+
+/* ---------- movimento reduzido: tudo visível, nada se mexe ---------- */
+
+.fx-reduzido [data-fx] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+.fx-reduzido [data-fx="palavras"] .fx-palavra {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+.fx-reduzido .fx-palco {
+  position: static;
+  height: auto;
+  overflow: visible;
+}
+.fx-reduzido [data-fx-etapas] .fx-etapa {
+  opacity: 1;
+  position: static !important;
+  grid-area: auto !important; /* etapas sobrepostas viram lista, uma sob a outra */
+  margin: 24px 0;
+}
+.fx-reduzido [data-fx="trilho"] {
+  flex-wrap: wrap;
+  transform: none !important;
+}

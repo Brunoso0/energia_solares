@@ -1,0 +1,30 @@
+# dependências
+node_modules/
+
+# build
+dist/
+
+# ferramentas de teste da skill Sites Incríveis (não fazem parte do site; a licença não permite redistribuir)
+.sites-incriveis/
+
+# screenshots do verificador
+verificacao/
+
+# vídeos originais, antes da conversão com ffmpeg (só os convertidos vão para o site)
+public/media/*-original.*
+
+# logs
+*.log
+npm-debug.log*
+
+# variáveis de ambiente
+.env
+.env.*
+!.env.example
+
+# editor e sistema
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
