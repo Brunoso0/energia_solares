@@ -273,6 +273,21 @@ html { scroll-padding-top: 24px; }
 .calc__cta { text-align: center; }
 .calc__nota { margin-top: 24px; }
 
+/* ---------- faixa de empresas (loop) ---------- */
+.faixa { padding: 64px var(--gutter) 80px; background: var(--fundo); color: var(--grafite); border-top: 1px solid var(--linha); }
+.faixa__cab { display: grid; gap: 16px; justify-items: start; margin-bottom: 40px; }
+.faixa__cab h2 { font-size: clamp(24px, 3vw, 36px); max-width: 24ch; }
+.faixa__pista {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.faixa__trilho { list-style: none; margin: 0; padding: 0; display: flex; gap: 24px; width: max-content; animation: faixa-rolar var(--duracao, 90s) linear infinite; will-change: transform; }
+.faixa__pista:hover .faixa__trilho { animation-play-state: paused; }
+.faixa__item { flex: none; width: 160px; height: 104px; background: #fff; border: 1px solid var(--linha); border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 8px; }
+.faixa__item img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+@keyframes faixa-rolar { to { transform: translateX(-50%); } }
+
 /* ---------- 2b · solução ---------- */
 .solucao {
   padding: 104px var(--gutter);
@@ -416,11 +431,11 @@ html { scroll-padding-top: 24px; }
 .mascote--parceiro { display: none; } /* no desktop o texto ocupa a coluna inteira; a mascote entra só no celular */
 
 /* o cartão da fatura lateral ocupa a margem direita no desktop */
-.calc, .solucao, .quem, .monitor, .parceiro, .fim, .rodape, .como__palco { padding-right: calc(var(--gutter) + var(--lado)); }
+.calc, .faixa, .solucao, .quem, .monitor, .parceiro, .fim, .rodape, .como__palco { padding-right: calc(var(--gutter) + var(--lado)); }
 
 /* seções escuras com fundo próprio: nada de texto claro sobre bege enquanto a página escurece */
 .pico, .monitor, .fim { background: var(--grafite); color: var(--fundo); }
-.abertura, .calc, .solucao, .quem, .como, .parceiro { background: var(--fundo); color: var(--grafite); }
+.abertura, .calc, .faixa, .solucao, .quem, .como, .parceiro { background: var(--fundo); color: var(--grafite); }
 .fim__form .nota { color: rgba(246, 241, 231, 0.7); }
 
 /* ---------- tablet / celular ---------- */
@@ -458,6 +473,9 @@ html { scroll-padding-top: 24px; }
   .pico__selo { right: -8px; top: -28px; width: 104px; }
   .pico__selo strong { font-size: 36px; }
   .calc { padding-top: 64px; padding-bottom: 64px; }
+  .faixa { padding-top: 40px; padding-bottom: 48px; }
+  .faixa__cab { margin-bottom: 24px; }
+  .faixa__item { width: 128px; height: 84px; }
   .calc__cab { margin-bottom: 40px; }
   .calc__grade { grid-template-columns: minmax(0, 1fr); }
   .calc__entrada, .calc__resultado { padding: 24px 16px; }
@@ -505,7 +523,14 @@ html { scroll-padding-top: 24px; }
 .fx-reduzido .como__trilho { display: none; }
 .fx-reduzido .como__palco { padding-top: 104px; }
 .fx-reduzido .fatura-lado { display: none; }
+/* movimento reduzido: sem loop; a lista fica parada, quebrando em linhas, sem as cópias */
+.fx-reduzido .faixa__trilho { animation: none; width: auto; flex-wrap: wrap; }
+.fx-reduzido .faixa__item--copia { display: none; }
+.fx-reduzido .faixa__pista { -webkit-mask-image: none; mask-image: none; }
 @media (prefers-reduced-motion: reduce) {
+  .faixa__trilho { animation: none; width: auto; flex-wrap: wrap; }
+  .faixa__item--copia { display: none; }
+  .faixa__pista { -webkit-mask-image: none; mask-image: none; }
   html { scroll-behavior: auto; }
   .botao, .fatura-lado, .fatura-lado__barra span { transition: none; }
 }

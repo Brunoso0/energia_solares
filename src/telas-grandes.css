@@ -105,6 +105,12 @@
   .calc__num { font-size: calc(28px * var(--k)); }
   .calc__nota { margin-top: calc(24px * var(--k)); }
 
+  .faixa { padding-block: calc(64px * var(--k)) calc(80px * var(--k)); }
+  .faixa__cab { gap: calc(16px * var(--k)); margin-bottom: calc(40px * var(--k)); }
+  .faixa__cab h2 { font-size: clamp(24px, 3vw, calc(36px * var(--k))); }
+  .faixa__trilho { gap: calc(24px * var(--k)); }
+  .faixa__item { width: calc(160px * var(--k)); height: calc(104px * var(--k)); border-radius: calc(12px * var(--k)); padding: calc(8px * var(--k)); }
+
   .solucao { padding-block: calc(104px * var(--k)); gap: calc(64px * var(--k)); }
   .solucao__titulo { gap: calc(24px * var(--k)); }
   .solucao__lista li { padding: calc(16px * var(--k)) 0 calc(16px * var(--k)) calc(40px * var(--k)); font-size: calc(18px * var(--k)); }

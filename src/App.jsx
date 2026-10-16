@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import logosParceiros from "virtual:logos-parceiros"; // tudo que está em public/logos-parceiros
 
 const TELEFONE = "5577999024800";
 const wa = (texto) => `https://wa.me/${TELEFONE}?text=${encodeURIComponent(texto)}`;
@@ -432,6 +433,45 @@ function Calculadora() {
   );
 }
 
+/* ---------- faixa de empresas que já usam a energia da Solares ----------
+   Em loop contínuo. As imagens vêm sozinhas da pasta public/logos-parceiros (ver vite.config.js). */
+
+const LARGURA_ITEM = 184; // largura média do cartão + espaço, só para dimensionar a faixa
+const PX_POR_SEGUNDO = 60;
+
+function FaixaEmpresas() {
+  const n = logosParceiros.length;
+  if (!n) return null;
+  // repete a lista até um grupo ser mais largo que qualquer tela; o segundo grupo é cópia para o loop
+  const copias = Math.max(1, Math.ceil(5200 / (n * LARGURA_ITEM)));
+  const duracao = Math.round((n * copias * LARGURA_ITEM) / PX_POR_SEGUNDO);
+  const grupo = (g) =>
+    Array.from({ length: copias }, (_, c) =>
+      logosParceiros.map((src, i) => {
+        const copia = g > 0 || c > 0;
+        return (
+          <li key={g + "-" + c + "-" + i} className={"faixa__item" + (copia ? " faixa__item--copia" : "")} aria-hidden={copia ? "true" : undefined}>
+            <img src={src} alt="" loading="lazy" decoding="async" draggable="false" />
+          </li>
+        );
+      })
+    );
+  return (
+    <section id="clientes" className="faixa" aria-label="Empresas que já usam a energia da Solares">
+      <div className="faixa__cab">
+        <p className="rotulo" data-fx="surgir">Quem já usa</p>
+        <h2 data-fx="subir">Empresas que já usam a energia da Solares.</h2>
+      </div>
+      <div className="faixa__pista">
+        <ul className="faixa__trilho" style={{ "--duracao": duracao + "s" }}>
+          {grupo(0)}
+          {grupo(1)}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 function Solucao() {
   return (
     <section id="solucao" className="solucao" data-cena="2" data-fx-fundo="#F6F1E7" data-fx-tinta="#16191D">
@@ -791,6 +831,7 @@ export default function App() {
         <Abertura />
         <Pico />
         <Calculadora />
+        <FaixaEmpresas />
         <Solucao />
         <ParaQuem />
         <ComoFunciona />
