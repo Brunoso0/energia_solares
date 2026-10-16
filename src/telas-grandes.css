@@ -33,7 +33,7 @@
 
   .cab { top: calc(16px * var(--k)); padding: calc(8px * var(--k)) calc(8px * var(--k)) calc(8px * var(--k)) calc(16px * var(--k)); border-radius: calc(14px * var(--k)); }
   .cab__logo img { height: calc(52px * var(--k)); }
-  .cab__nav { gap: calc(24px * var(--k)); }
+  .cab__nav { gap: calc(24px * var(--k)); margin-left: calc(40px * var(--k)); }
   .cab__link { font-size: calc(15px * var(--k)); }
 
   .fatura-lado { right: calc(24px * var(--k)); width: calc(188px * var(--k)); padding: calc(16px * var(--k)); border-radius: calc(10px * var(--k)); font-size: calc(12px * var(--k)); }
