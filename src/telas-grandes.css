@@ -1,0 +1,131 @@
+/* Telas grandes (27 polegadas ou mais).
+   Abaixo de 2200px nada muda. Acima, --k amplia textos, espaços e componentes
+   para o layout manter a mesma proporção que tem em 1920px.
+   Carregado depois de styles.css, por isso sobrescreve sem precisar de !important. */
+
+@media (min-width: 2200px) {
+  :root { --k: 1.25; }
+}
+@media (min-width: 2800px) {
+  :root { --k: 1.55; }
+}
+@media (min-width: 3400px) {
+  :root { --k: 1.9; }
+}
+
+@media (min-width: 2200px) {
+  :root {
+    --gutter: clamp(16px, 5vw, calc(64px * var(--k)));
+    --lado: calc(216px * var(--k));
+  }
+  body { font-size: calc(18px * var(--k)); }
+  h1 { font-size: clamp(44px, 8.2vw, calc(104px * var(--k))); }
+  h2 { font-size: clamp(32px, 5vw, calc(64px * var(--k))); }
+  h3 { font-size: calc(24px * var(--k)); }
+
+  .rotulo { font-size: calc(13px * var(--k)); gap: calc(10px * var(--k)); }
+  .rotulo::before { width: calc(10px * var(--k)); height: calc(10px * var(--k)); }
+  .lead { font-size: calc(18px * var(--k)); }
+  .nota { font-size: calc(15px * var(--k)); }
+  .botao { font-size: calc(18px * var(--k)); padding: calc(16px * var(--k)) calc(32px * var(--k)); border-radius: calc(10px * var(--k)); }
+  .botao--pequeno { font-size: calc(15px * var(--k)); padding: calc(10px * var(--k)) calc(20px * var(--k)); }
+  .link-simples { text-underline-offset: calc(6px * var(--k)); text-decoration-thickness: calc(2px * var(--k)); }
+
+  .cab { top: calc(16px * var(--k)); padding: calc(8px * var(--k)) calc(8px * var(--k)) calc(8px * var(--k)) calc(16px * var(--k)); border-radius: calc(14px * var(--k)); }
+  .cab__logo img { height: calc(52px * var(--k)); }
+  .cab__nav { gap: calc(24px * var(--k)); }
+  .cab__link { font-size: calc(15px * var(--k)); }
+
+  .fatura-lado { right: calc(24px * var(--k)); width: calc(188px * var(--k)); padding: calc(16px * var(--k)); border-radius: calc(10px * var(--k)); font-size: calc(12px * var(--k)); }
+  .fatura-lado__titulo { font-size: calc(11px * var(--k)); margin-bottom: calc(8px * var(--k)); }
+  .fatura-lado ul { margin-bottom: calc(16px * var(--k)); }
+  .fatura-lado li { padding: calc(4px * var(--k)) 0; }
+  .fatura-lado__barra { height: calc(8px * var(--k)); border-radius: calc(4px * var(--k)); }
+  .fatura-lado__total { margin-top: calc(8px * var(--k)); font-size: calc(18px * var(--k)); }
+
+  .media { border-radius: calc(14px * var(--k)); }
+  .monitor__video { border-radius: calc(8px * var(--k)); margin-bottom: calc(16px * var(--k)); }
+  .media__painel {
+    background:
+      repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.07) 0 1px, transparent 1px calc(44px * var(--k))),
+      repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.07) 0 1px, transparent 1px calc(44px * var(--k))),
+      #1F4A60;
+  }
+  .media--neutro .media__painel { background: #2a3037; }
+
+  .abertura { padding-top: calc(136px * var(--k)); }
+  .abertura__texto { max-width: calc(980px * var(--k)); gap: calc(24px * var(--k)); }
+  .abertura__acoes { gap: calc(24px * var(--k)); }
+  .sol {
+    width: clamp(240px, 46vmin, calc(560px * var(--k)));
+    box-shadow: 0 0 0 clamp(14px, 3vmin, calc(36px * var(--k))) rgba(227, 169, 24, 0.28), 0 0 0 clamp(28px, 6vmin, calc(72px * var(--k))) rgba(227, 169, 24, 0.14);
+  }
+  .abertura__faixa { margin-top: calc(64px * var(--k)); }
+
+  .pico__palco { gap: calc(40px * var(--k)); padding-top: calc(96px * var(--k)); padding-bottom: calc(40px * var(--k)); max-width: calc(1400px * var(--k)); }
+  .pico__texto { gap: calc(24px * var(--k)); }
+  .pico__legendas h2 { font-size: clamp(32px, 5vw, calc(64px * var(--k))); }
+  .pico__fatura-area { flex-basis: min(calc(480px * var(--k)), 42vw); }
+  .pico__fatura { padding: calc(40px * var(--k)) calc(24px * var(--k)) calc(24px * var(--k)); border-radius: calc(6px * var(--k)); box-shadow: 0 calc(24px * var(--k)) calc(64px * var(--k)) rgba(0, 0, 0, 0.45); gap: calc(16px * var(--k)); font-size: calc(15px * var(--k)); }
+  .pico__cabeca { font-size: calc(12px * var(--k)); padding-bottom: calc(12px * var(--k)); }
+  .pico__linha { font-size: calc(18px * var(--k)); gap: calc(16px * var(--k)); padding: calc(8px * var(--k)) 0; }
+  .pico__risco { height: calc(3px * var(--k)); }
+  .pico__linha--nova { padding: calc(8px * var(--k)); margin: 0 calc(-8px * var(--k)); border-radius: calc(4px * var(--k)); }
+  .pico__total { font-size: calc(18px * var(--k)); padding-top: calc(16px * var(--k)); border-top-width: calc(2px * var(--k)); }
+  .pico__total strong { font-size: calc(36px * var(--k)); }
+  .pico__total strong.is-ouro { padding: calc(4px * var(--k)) calc(8px * var(--k)); border-radius: calc(4px * var(--k)); }
+  .pico__rodape { font-size: calc(13px * var(--k)); }
+  .pico__selo { right: calc(-24px * var(--k)); top: calc(-32px * var(--k)); width: clamp(120px, 14vw, calc(176px * var(--k))); }
+  .pico__selo span { font-size: calc(18px * var(--k)); }
+  .pico__selo strong { font-size: clamp(40px, 5vw, calc(64px * var(--k))); }
+
+  .solucao { padding-block: calc(104px * var(--k)); gap: calc(64px * var(--k)); }
+  .solucao__titulo { gap: calc(24px * var(--k)); }
+  .solucao__lista li { padding: calc(16px * var(--k)) 0 calc(16px * var(--k)) calc(40px * var(--k)); font-size: calc(18px * var(--k)); }
+  .solucao__lista li::before { top: calc(26px * var(--k)); width: calc(16px * var(--k)); height: calc(3px * var(--k)); }
+  .solucao__cta { gap: calc(24px * var(--k)); }
+
+  .quem { padding-top: calc(64px * var(--k)); padding-bottom: calc(104px * var(--k)); }
+  .quem__cab { max-width: calc(760px * var(--k)); margin-bottom: calc(64px * var(--k)); }
+  .quem__grade { gap: calc(24px * var(--k)); }
+  .perfil { gap: calc(8px * var(--k)); }
+  .perfil .media { margin-bottom: calc(16px * var(--k)); }
+  .perfil p { font-size: calc(15px * var(--k)); }
+  .perfil--2 { margin-top: calc(64px * var(--k)); }
+  .perfil--3 { margin-top: calc(24px * var(--k)); }
+  .perfil--4 { margin-top: calc(88px * var(--k)); }
+  .quem__cta { margin-top: calc(64px * var(--k)); gap: calc(24px * var(--k)); }
+
+  .como__palco { gap: calc(40px * var(--k)); padding-top: calc(96px * var(--k)); padding-bottom: calc(64px * var(--k)); }
+  .como__etapas { max-width: calc(1100px * var(--k)); }
+  .como__etapa { gap: calc(40px * var(--k)); }
+  .como__etapa h2 { margin-bottom: calc(16px * var(--k)); font-size: clamp(32px, 4.4vw, calc(56px * var(--k))); }
+  .como__num { font-size: clamp(120px, 22vw, calc(320px * var(--k))); }
+  .como__trilho { gap: calc(8px * var(--k)); width: min(calc(320px * var(--k)), 100%); }
+  .como__trilho li { height: calc(6px * var(--k)); border-radius: calc(3px * var(--k)); }
+
+  .monitor { padding-block: calc(104px * var(--k)); gap: calc(64px * var(--k)); }
+  .monitor__texto { gap: calc(24px * var(--k)); }
+  .monitor__lista { margin-top: calc(16px * var(--k)); }
+  .monitor__lista li { gap: calc(4px * var(--k)); padding: calc(16px * var(--k)) 0; }
+  .monitor__lista strong { font-size: calc(24px * var(--k)); }
+  .monitor__lista span { font-size: calc(15px * var(--k)); }
+  .monitor__painel { border-radius: calc(14px * var(--k)); padding: calc(24px * var(--k)); }
+  .monitor__painel figcaption { font-size: calc(12px * var(--k)); margin-bottom: calc(16px * var(--k)); }
+
+  .parceiro { padding-block: calc(104px * var(--k)); gap: calc(64px * var(--k)); }
+  .parceiro__texto { gap: calc(24px * var(--k)); }
+
+  .fim { padding-top: calc(104px * var(--k)); padding-bottom: calc(40px * var(--k)); grid-template-columns: minmax(0, 1fr) minmax(0, calc(480px * var(--k))); gap: calc(64px * var(--k)); }
+  .fim__texto { gap: calc(24px * var(--k)); }
+  .fim__form { gap: calc(16px * var(--k)); padding: calc(32px * var(--k)); border-radius: calc(14px * var(--k)); }
+  .campo { gap: calc(8px * var(--k)); font-size: calc(15px * var(--k)); }
+  .campo input { font-size: calc(18px * var(--k)); border-radius: calc(8px * var(--k)); padding: calc(12px * var(--k)) calc(16px * var(--k)); }
+  .rodape { margin-top: calc(64px * var(--k)); padding-top: calc(40px * var(--k)); gap: calc(40px * var(--k)); font-size: calc(15px * var(--k)); }
+  .rodape__logo { padding: calc(8px * var(--k)) calc(16px * var(--k)); border-radius: calc(10px * var(--k)); }
+  .rodape__logo img { height: calc(56px * var(--k)); }
+  .rodape__copy { font-size: calc(13px * var(--k)); }
+
+  .zap { right: calc(24px * var(--k)); bottom: calc(24px * var(--k)); gap: calc(8px * var(--k)); padding: calc(14px * var(--k)) calc(20px * var(--k)); font-size: calc(15px * var(--k)); }
+  .zap svg { width: calc(28px * var(--k)); height: calc(28px * var(--k)); }
+}

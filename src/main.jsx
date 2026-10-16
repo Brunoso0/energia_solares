@@ -3,6 +3,7 @@ import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import "./styles.css";
+import "./telas-grandes.css";
 
 const root = createRoot(document.getElementById("root"));
 flushSync(() => root.render(<App />));
