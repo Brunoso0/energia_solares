@@ -404,6 +404,15 @@ html { scroll-padding-top: 24px; }
 .zap:hover { transform: translateY(-3px); }
 .zap:focus-visible { outline: 3px solid var(--grafite); outline-offset: 3px; }
 
+
+/* ---------- mascote (bonequinha com a farda) ---------- */
+.mascote { display: block; width: auto; max-width: none; pointer-events: none; user-select: none; mix-blend-mode: multiply; } /* o branco da imagem some sobre o creme */
+.calc { position: relative; }
+.como__palco { background: var(--fundo); } /* o palco sticky isola o blend: precisa de fundo próprio para o branco da imagem sumir */ /* .como__palco já é sticky (motor), serve de âncora */
+.mascote--calc { position: absolute; top: 24px; right: calc(var(--gutter) + var(--lado)); height: 400px; }
+.mascote--como { position: absolute; right: calc(var(--gutter) + var(--lado)); bottom: 0; height: min(48vh, 440px); }
+.mascote--parceiro { display: none; } /* no desktop o texto ocupa a coluna inteira; a mascote entra só no celular */
+
 /* o cartão da fatura lateral ocupa a margem direita no desktop */
 .calc, .solucao, .quem, .monitor, .parceiro, .fim, .rodape, .como__palco { padding-right: calc(var(--gutter) + var(--lado)); }
 
@@ -465,6 +474,9 @@ html { scroll-padding-top: 24px; }
   .rodape__logo-energia { height: 64px; }
   .rodape__logo-incorp { height: 88px; }
   .fim__form { padding: 24px 16px; }
+  .mascote--calc { position: static; height: 220px; margin: -16px auto 24px; }
+  .mascote--como { display: none; } /* no celular o palco já tem o botão, a fatura e o WhatsApp */
+  .mascote--parceiro { display: block; height: 240px; margin: 0 auto; }
 }
 
 /* ---------- movimento reduzido: tudo legível, na ordem ---------- */

@@ -153,6 +153,9 @@
   .rodape__logo-incorp { height: calc(104px * var(--k)); }
   .rodape__copy { font-size: calc(13px * var(--k)); }
 
+  .mascote--calc { top: calc(24px * var(--k)); height: calc(400px * var(--k)); }
+  .mascote--como { height: min(48vh, calc(440px * var(--k))); }
+
   .zap { right: calc(24px * var(--k)); bottom: calc(24px * var(--k)); gap: calc(8px * var(--k)); padding: calc(14px * var(--k)) calc(20px * var(--k)); font-size: calc(15px * var(--k)); }
   .zap svg { width: calc(28px * var(--k)); height: calc(28px * var(--k)); }
 }

@@ -25,6 +25,26 @@ function Media({ arquivo, proporcao, alt = "", className = "" }) {
   );
 }
 
+/* Mascote da Solares (public/media/mascote-*.jpg, 4:5, fundo branco: o CSS usa multiply para sumir com o branco). Sem o arquivo, não aparece. */
+function Mascote({ pose, className = "", atraso = 0, alt = "" }) {
+  const [falhou, setFalhou] = useState(false);
+  if (falhou) return null;
+  return (
+    <img
+      className={`mascote ${className}`}
+      src={`/media/mascote-${pose}.jpg`}
+      width="1200"
+      height="1500"
+      alt={alt}
+      aria-hidden={alt ? undefined : "true"}
+      loading="lazy"
+      data-fx="surgir"
+      data-fx-atraso={atraso}
+      onError={() => setFalhou(true)}
+    />
+  );
+}
+
 /* Vídeo em loop, sem som. Com movimento reduzido fica parado no quadro de capa. */
 function VideoLoop({ arquivo, poster, proporcao, alt = "" }) {
   const ref = useRef(null);
@@ -342,6 +362,8 @@ function Calculadora() {
         </p>
       </div>
 
+      <Mascote pose="apontando" className="mascote--calc" atraso={200} />
+
       <div className="calc__grade">
         <div className="calc__entrada" data-fx="esquerda">
           <label className="calc__rotulo" htmlFor="calc-valor">Sua conta de luz atual (por mês)</label>
@@ -505,6 +527,7 @@ function ComoFunciona() {
           <li /><li /><li /><li />
         </ol>
         <a href="#simular" className="botao como__cta">Enviar minha conta de energia</a>
+        <Mascote pose="fatura" className="mascote--como" />
       </div>
     </section>
   );
@@ -655,6 +678,7 @@ function Parceiro() {
           Quero locar minha usina
         </a>
       </div>
+      <Mascote pose="contrato" className="mascote--parceiro" atraso={300} />
     </section>
   );
 }
