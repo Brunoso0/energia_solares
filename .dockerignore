@@ -1,0 +1,11 @@
+node_modules
+dist
+.git
+.sites-incriveis
+.wrangler
+verificacao
+verificacao-lote
+*.log
+.vite.log
+.env*
+deploy-vps

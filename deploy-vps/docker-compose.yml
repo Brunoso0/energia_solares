@@ -1,0 +1,30 @@
+# Fica em /root/sites/docker-compose.yml na VPS.
+# Estrutura na VPS:
+#   /root/sites/docker-compose.yml
+#   /root/sites/energia_solares/   (git clone do repo)
+#   /root/sites/vila-araponga/     (git clone do repo)
+services:
+  npm:
+    image: jc21/nginx-proxy-manager:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "81:81"
+      - "443:443"
+    volumes:
+      - ./npm/data:/data
+      - ./npm/letsencrypt:/etc/letsencrypt
+    networks: [web]
+
+  solares-energia:
+    build: ./energia_solares
+    restart: unless-stopped
+    networks: [web]
+
+  vila-araponga:
+    build: ./vila-araponga
+    restart: unless-stopped
+    networks: [web]
+
+networks:
+  web:
