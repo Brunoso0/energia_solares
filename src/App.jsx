@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import logosParceiros from "virtual:logos-parceiros"; // tudo que está em public/logos-parceiros
 
-const TELEFONE = "5577999024800";
+const TELEFONE = "5577999629654";
 const wa = (texto) => `https://wa.me/${TELEFONE}?text=${encodeURIComponent(texto)}`;
 const MSG_CLIENTE = "Olá! Quero simular minha economia na conta de energia com a Solares.";
 const MSG_PARCEIRO = "Olá! Tenho uma usina de 10 a 75 kWp e quero saber como locar para a Solares.";
@@ -705,7 +705,7 @@ function Rodape() {
         <p>Atendemos toda a Bahia.</p>
       </div>
       <div>
-        <p><a href="tel:+5577999024800">(77) 99902-4800</a></p>
+        <p><a href="tel:+5577999629654">(77) 99962-9654</a></p>
         <p>Rua Maranhão, 200, Jardim Brasil, Brumado/BA</p>
       </div>
       <p className="rodape__copy">www.solarescorporativa.com.br © 2026. Todos os direitos reservados.</p>
