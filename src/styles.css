@@ -163,57 +163,7 @@ html { scroll-padding-top: 24px; }
 .abertura__faixa { position: relative; z-index: 2; margin: 64px calc(var(--gutter) * -1) 0; }
 .abertura__faixa .media { border-radius: 0; }
 
-/* ---------- 2 · pico ---------- */
-.pico { color: var(--fundo); }
-.pico__palco {
-  justify-content: space-between;
-  gap: 40px;
-  padding: 96px var(--gutter) 40px;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-.pico__texto { flex: 1 1 0; min-width: 0; display: grid; gap: 24px; align-content: center; }
-.pico__legendas { display: grid; }
-.pico__legendas h2 { grid-area: 1 / 1; font-size: clamp(32px, 5vw, 64px); }
-.pico__legendas h2:nth-child(2), .pico__legendas h2:nth-child(3) { opacity: 0; }
-.pico__fatura-area { position: relative; flex: 0 0 min(480px, 42vw); }
-.pico__fatura {
-  background: #FBF8F1;
-  color: var(--grafite);
-  padding: 40px 24px 24px;
-  border-radius: 6px;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
-  display: grid;
-  gap: 16px;
-  font-size: 15px;
-}
-.pico__cabeca { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.65; border-bottom: 1px dashed var(--linha); padding-bottom: 12px; }
-.pico__linha { position: relative; display: flex; justify-content: space-between; gap: 16px; font-size: 18px; padding: 8px 0; }
-.pico__risco { position: absolute; left: 0; right: 0; top: 50%; height: 3px; background: var(--grafite); transform: scaleX(0); transform-origin: left; }
-.pico__linha--nova { opacity: 0; font-weight: 600; background: rgba(227, 169, 24, 0.22); padding: 8px; margin: 0 -8px; border-radius: 4px; }
-.pico__total { display: flex; justify-content: space-between; align-items: baseline; border-top: 2px solid var(--grafite); padding-top: 16px; font-size: 18px; }
-.pico__total strong { font-size: 36px; line-height: 1; }
-.pico__total strong.is-ouro { background: var(--ouro); padding: 4px 8px; border-radius: 4px; }
-.pico__rodape { font-size: 13px; opacity: 0.6; line-height: 1.4; }
-.pico__selo {
-  position: absolute;
-  right: -24px; top: -32px;
-  width: clamp(120px, 14vw, 176px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--ouro);
-  color: var(--grafite);
-  display: grid;
-  place-content: center;
-  text-align: center;
-  opacity: 0;
-  font-family: var(--display);
-  line-height: 0.9;
-}
-.pico__selo span { font-size: 18px; font-weight: 600; }
-.pico__selo strong { font-size: clamp(40px, 5vw, 64px); }
 .nota--clara { color: color-mix(in srgb, currentColor 66%, transparent); }
-.pico__texto .nota { opacity: 0; }
 
 /* ---------- 2a · calculadora ---------- */
 .calc { padding: 104px var(--gutter); overflow-x: clip; }
@@ -437,7 +387,6 @@ html { scroll-padding-top: 24px; }
 .calc, .faixa, .solucao, .quem, .monitor, .parceiro, .fim, .rodape, .como__palco { padding-right: calc(var(--gutter) + var(--lado)); }
 
 /* seções escuras com fundo próprio: nada de texto claro sobre bege enquanto a página escurece */
-.pico, .monitor, .fim { background: var(--grafite); color: var(--fundo); }
 .abertura, .calc, .faixa, .solucao, .quem, .como, .parceiro { background: var(--fundo); color: var(--grafite); }
 .fim__form .nota { color: rgba(246, 241, 231, 0.7); }
 
@@ -466,15 +415,6 @@ html { scroll-padding-top: 24px; }
   .abertura { padding-top: 112px; }
   .abertura__sol { top: 12vh; right: -22vw; opacity: 0.55; }
   .abertura__faixa { margin-top: 40px; }
-  .pico__palco { flex-direction: column; justify-content: center; gap: 24px; padding: 88px var(--gutter) 24px; }
-  .pico__texto { flex: 0 0 auto; gap: 16px; }
-  .pico__legendas h2 { font-size: 28px; }
-  .pico__fatura-area { flex: 0 0 auto; width: 100%; max-width: 400px; align-self: center; }
-  .pico__fatura { padding: 32px 16px 16px; gap: 8px; }
-  .pico__linha { font-size: 16px; padding: 4px 0; }
-  .pico__total strong { font-size: 28px; }
-  .pico__selo { right: -8px; top: -28px; width: 104px; }
-  .pico__selo strong { font-size: 36px; }
   .calc { padding-top: 64px; padding-bottom: 64px; }
   .faixa { padding-top: 40px; padding-bottom: 48px; }
   .faixa__cab { margin-bottom: 24px; }
@@ -521,10 +461,6 @@ html { scroll-padding-top: 24px; }
 }
 
 /* ---------- movimento reduzido: tudo legível, na ordem ---------- */
-.fx-reduzido .pico__legendas h2:nth-child(1),
-.fx-reduzido .pico__legendas h2:nth-child(2) { display: none; }
-.fx-reduzido .pico__legendas h2:nth-child(3) { opacity: 1 !important; }
-.fx-reduzido .pico__palco { padding-top: 104px; padding-bottom: 64px; }
 .fx-reduzido .como__trilho { display: none; }
 .fx-reduzido .como__palco { padding-top: 104px; }
 .fx-reduzido .fatura-lado { display: none; }

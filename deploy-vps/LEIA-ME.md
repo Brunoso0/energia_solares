@@ -40,7 +40,7 @@ O build (npm ci + vite build) roda dentro do Docker na VPS, por isso o `dist/` n
   | energia | `solares-energia` | 80 |
   | Vila Araponga | `vila-araponga` | 80 |
 - Aba SSL: Request new certificate + Force SSL + HTTP/2.
-- Depois feche a porta 81 pro público (firewall da Hostinger) e use `ssh -L 81:localhost:81 root@IP` pra acessar.
+- A porta 81 já fica presa em 127.0.0.1 (só acessível por túnel): `ssh -L 81:localhost:81 root@IP` e abra http://localhost:81.
 
 ## D. (Opcional) Deploy automático no push
 GitHub Actions que faz SSH na VPS e roda `/root/sites/deploy.sh energia` a cada push na `main`.

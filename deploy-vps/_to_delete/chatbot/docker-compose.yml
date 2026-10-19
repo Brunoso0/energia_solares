@@ -1,0 +1,102 @@
+# Fica em /root/sites/chatbot/docker-compose.yml na VPS.
+# Usa a rede do Proxy Manager (sites_web) para o NPM alcançar os containers;
+# bancos ficam numa rede interna, sem porta publicada.
+# Domínios: api.  -> Evolution API | typebot. -> builder | bot. -> viewer
+services:
+  evolution-db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: evolution
+      POSTGRES_PASSWORD: ${EVOLUTION_DB_PASSWORD}
+      POSTGRES_DB: evolution
+    volumes:
+      - evolution_pg:/var/lib/postgresql/data
+    networks: [internal]
+
+  evolution-redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - evolution_redis:/data
+    networks: [internal]
+
+  evolution-api:
+    image: ${EVOLUTION_IMAGE:-evoapicloud/evolution-api:latest}
+    restart: unless-stopped
+    depends_on: [evolution-db, evolution-redis]
+    environment:
+      SERVER_URL: https://api.${BASE_DOMAIN}
+      AUTHENTICATION_API_KEY: ${EVOLUTION_API_KEY}
+      DATABASE_ENABLED: "true"
+      DATABASE_PROVIDER: postgresql
+      DATABASE_CONNECTION_URI: postgresql://evolution:${EVOLUTION_DB_PASSWORD}@evolution-db:5432/evolution?schema=public
+      DATABASE_CONNECTION_CLIENT_NAME: evolution
+      DATABASE_SAVE_DATA_INSTANCE: "true"
+      DATABASE_SAVE_DATA_NEW_MESSAGE: "true"
+      DATABASE_SAVE_MESSAGE_UPDATE: "true"
+      DATABASE_SAVE_DATA_CONTACTS: "true"
+      DATABASE_SAVE_DATA_CHATS: "true"
+      CACHE_REDIS_ENABLED: "true"
+      CACHE_REDIS_URI: redis://evolution-redis:6379/6
+      CACHE_REDIS_PREFIX_KEY: evolution
+      CACHE_LOCAL_ENABLED: "false"
+      TYPEBOT_API_VERSION: latest
+      DEL_INSTANCE: "false"
+    volumes:
+      - evolution_instances:/evolution/instances
+    networks: [internal, web]
+
+  typebot-db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: typebot
+      POSTGRES_PASSWORD: ${TYPEBOT_DB_PASSWORD}
+      POSTGRES_DB: typebot
+    volumes:
+      - typebot_pg:/var/lib/postgresql/data
+    networks: [internal]
+
+  typebot-builder:
+    image: baptistearno/typebot-builder:latest
+    restart: unless-stopped
+    depends_on: [typebot-db]
+    environment: &typebot-env
+      DATABASE_URL: postgresql://typebot:${TYPEBOT_DB_PASSWORD}@typebot-db:5432/typebot
+      NEXTAUTH_URL: https://typebot.${BASE_DOMAIN}
+      NEXT_PUBLIC_VIEWER_URL: https://bot.${BASE_DOMAIN}
+      ENCRYPTION_SECRET: ${TYPEBOT_ENCRYPTION_SECRET}
+      ADMIN_EMAIL: ${TYPEBOT_ADMIN_EMAIL}
+      DISABLE_SIGNUP: ${TYPEBOT_DISABLE_SIGNUP:-false}
+      NEXT_PUBLIC_SMTP_FROM: ${SMTP_FROM:-}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USERNAME: ${SMTP_USERNAME:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+    networks: [internal, web]
+
+  typebot-viewer:
+    image: baptistearno/typebot-viewer:latest
+    restart: unless-stopped
+    depends_on: [typebot-db]
+    environment:
+      DATABASE_URL: postgresql://typebot:${TYPEBOT_DB_PASSWORD}@typebot-db:5432/typebot
+      NEXTAUTH_URL: https://typebot.${BASE_DOMAIN}
+      NEXT_PUBLIC_VIEWER_URL: https://bot.${BASE_DOMAIN}
+      ENCRYPTION_SECRET: ${TYPEBOT_ENCRYPTION_SECRET}
+    networks: [internal, web]
+
+volumes:
+  evolution_pg:
+  evolution_redis:
+  evolution_instances:
+  typebot_pg:
+
+networks:
+  internal:
+  web:
+    external: true
+    name: sites_web

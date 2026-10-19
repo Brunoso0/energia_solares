@@ -218,115 +218,6 @@ function Abertura() {
   );
 }
 
-/* ---------- cena 2 · PICO: a conta encolhe ---------- */
-
-function Pico() {
-  const secao = useRef(null);
-
-  useEffect(() => {
-    const s = secao.current;
-    const q = (nome) => s.querySelector(`[data-ref="${nome}"]`);
-    const el = {
-      fatura: q("fatura"), riscoLinha: q("risco"), linhaAntiga: q("antiga"), linhaNova: q("nova"),
-      total: q("total"), selo: q("selo"), c1: q("c1"), c2: q("c2"), c3: q("c3"), nota: q("nota"),
-    };
-
-    function desenhar(p) {
-      const entra = suave(trecho(p, 0, 0.12));
-      el.fatura.style.opacity = entra;
-      el.fatura.style.transform = `translateY(${(1 - entra) * 40}px) scale(${0.94 + 0.06 * entra})`;
-
-      el.riscoLinha.style.transform = `scaleX(${suave(trecho(p, 0.2, 0.45))})`;
-      el.linhaAntiga.style.opacity = 1 - 0.65 * trecho(p, 0.3, 0.5);
-
-      const nova = suave(trecho(p, 0.4, 0.6));
-      el.linhaNova.style.opacity = nova;
-      el.linhaNova.style.transform = `translateY(${(1 - nova) * 24}px)`;
-
-      const valor = 1000 - 300 * suave(trecho(p, 0.4, 0.8));
-      el.total.textContent = `R$ ${brl(valor)}`;
-      el.total.classList.toggle("is-ouro", p > 0.4);
-
-      const selo = suave(trecho(p, 0.55, 0.9));
-      el.selo.style.opacity = trecho(p, 0.55, 0.7);
-      el.selo.style.transform = `rotate(-6deg) scale(${0.7 + 0.3 * selo})`;
-
-      el.c1.style.opacity = 1 - trecho(p, 0.25, 0.32);
-      el.c2.style.opacity = trecho(p, 0.3, 0.38) * (1 - trecho(p, 0.66, 0.72));
-      el.c3.style.opacity = trecho(p, 0.7, 0.78);
-      el.nota.style.opacity = trecho(p, 0.82, 0.92);
-    }
-
-    if (reduzido()) {
-      desenhar(1);
-      return;
-    }
-
-    let agendado = false;
-    function ler() {
-      agendado = false;
-      const percurso = s.offsetHeight - window.innerHeight;
-      desenhar(percurso > 0 ? limitar(-s.getBoundingClientRect().top / percurso, 0, 1) : 0);
-    }
-    function aoRolar() {
-      if (!agendado) {
-        agendado = true;
-        requestAnimationFrame(ler);
-      }
-    }
-    desenhar(0);
-    window.addEventListener("scroll", aoRolar, { passive: true });
-    window.addEventListener("resize", aoRolar);
-    aoRolar();
-    return () => {
-      window.removeEventListener("scroll", aoRolar);
-      window.removeEventListener("resize", aoRolar);
-    };
-  }, []);
-
-  return (
-    <section ref={secao} className="pico" data-cena="1" data-fx-fixa data-fx-altura="5" data-fx-fundo="#16191D" data-fx-tinta="#F6F1E7">
-      <div className="fx-palco pico__palco">
-        <div className="pico__texto">
-          <div className="pico__legendas">
-            <h2 data-ref="c1">Esta é a sua conta de energia hoje.</h2>
-            <h2 data-ref="c2">A Solares corta o que pesa nela.</h2>
-            <h2 data-ref="c3">A mesma energia. Até 30% menos.</h2>
-          </div>
-          <p className="nota nota--clara" data-ref="nota">
-            Sem investimento na compra da usina. Sujeito à análise de consumo, disponibilidade de créditos e
-            condições contratuais.
-          </p>
-        </div>
-
-        <div className="pico__fatura-area">
-          <div className="pico__fatura" data-ref="fatura">
-            <p className="pico__cabeca">Fatura de energia · exemplo ilustrativo</p>
-            <div className="pico__linha" data-ref="antiga">
-              <span>Energia da distribuidora</span>
-              <span className="mono">R$ 1.000,00</span>
-              <i className="pico__risco" data-ref="risco" />
-            </div>
-            <div className="pico__linha pico__linha--nova" data-ref="nova">
-              <span>Com a Solares</span>
-              <span className="mono">R$ 700,00</span>
-            </div>
-            <div className="pico__total">
-              <span>Total do mês</span>
-              <strong className="mono" data-ref="total">R$ 1.000,00</strong>
-            </div>
-            <p className="pico__rodape">Valores ilustrativos. A economia real depende da análise da unidade consumidora.</p>
-          </div>
-          <div className="pico__selo" data-ref="selo" aria-label="até 30% de desconto">
-            <span>até</span>
-            <strong>30%</strong>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ---------- cena 2b · a solução ---------- */
 
 /* ---------- cena 2a · calculadora de economia ----------
@@ -830,7 +721,6 @@ export default function App() {
       <ZapFlutuante />
       <main>
         <Abertura />
-        <Pico />
         <Calculadora />
         <FaixaEmpresas />
         <Solucao />

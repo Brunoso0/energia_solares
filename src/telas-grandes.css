@@ -62,22 +62,6 @@
   }
   .abertura__faixa { margin-top: calc(64px * var(--k)); }
 
-  .pico__palco { gap: calc(40px * var(--k)); padding-top: calc(96px * var(--k)); padding-bottom: calc(40px * var(--k)); max-width: calc(1400px * var(--k)); }
-  .pico__texto { gap: calc(24px * var(--k)); }
-  .pico__legendas h2 { font-size: clamp(32px, 5vw, calc(64px * var(--k))); }
-  .pico__fatura-area { flex-basis: min(calc(480px * var(--k)), 42vw); }
-  .pico__fatura { padding: calc(40px * var(--k)) calc(24px * var(--k)) calc(24px * var(--k)); border-radius: calc(6px * var(--k)); box-shadow: 0 calc(24px * var(--k)) calc(64px * var(--k)) rgba(0, 0, 0, 0.45); gap: calc(16px * var(--k)); font-size: calc(15px * var(--k)); }
-  .pico__cabeca { font-size: calc(12px * var(--k)); padding-bottom: calc(12px * var(--k)); }
-  .pico__linha { font-size: calc(18px * var(--k)); gap: calc(16px * var(--k)); padding: calc(8px * var(--k)) 0; }
-  .pico__risco { height: calc(3px * var(--k)); }
-  .pico__linha--nova { padding: calc(8px * var(--k)); margin: 0 calc(-8px * var(--k)); border-radius: calc(4px * var(--k)); }
-  .pico__total { font-size: calc(18px * var(--k)); padding-top: calc(16px * var(--k)); border-top-width: calc(2px * var(--k)); }
-  .pico__total strong { font-size: calc(36px * var(--k)); }
-  .pico__total strong.is-ouro { padding: calc(4px * var(--k)) calc(8px * var(--k)); border-radius: calc(4px * var(--k)); }
-  .pico__rodape { font-size: calc(13px * var(--k)); }
-  .pico__selo { right: calc(-24px * var(--k)); top: calc(-32px * var(--k)); width: clamp(120px, 14vw, calc(176px * var(--k))); }
-  .pico__selo span { font-size: calc(18px * var(--k)); }
-  .pico__selo strong { font-size: clamp(40px, 5vw, calc(64px * var(--k))); }
 
   .calc { padding-block: calc(104px * var(--k)); }
   .calc__cab { gap: calc(24px * var(--k)); max-width: calc(760px * var(--k)); margin-bottom: calc(64px * var(--k)); }
