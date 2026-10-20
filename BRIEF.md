@@ -10,7 +10,7 @@
 7. **Materiais:** logo (logo.png sem fundo, logo.jpeg com fundo). Fotos e vídeos serão gerados por IA a partir dos prompts em PROMPTS-IMAGENS.md. Contatos do site solarescorporativa.com.br. Nenhum número de clientes, kWp ou depoimento existe: não entra na página.
 
 ## Dados reais (do site atual)
-- Telefone/WhatsApp: (77) 99902-4800 — wa.me/message/4WW7RPSHA5WAA1
+- Telefone/WhatsApp: (77) 99962-9654
 - Segundo WhatsApp (corretor): (77) 98871-6008
 - Endereço: Rua Maranhão, 200, Jardim Brasil, Brumado/BA, CEP 46100-000 (atendimento home office)
 - Atuação: toda a Bahia (informado pelo cliente; o site antigo citava só Brumado e Guanambi)
