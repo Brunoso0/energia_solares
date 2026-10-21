@@ -97,6 +97,8 @@ p { margin: 0; }
   transition: background-size 0.3s ease;
 }
 .cab__link:hover, .cab__link.is-ativo { background-size: 100% 3px; }
+/* menu hambúrguer: só aparece onde os links somem (até 1040px) */
+.cab__burger, .cab__menu { display: none; }
 html { scroll-padding-top: 24px; }
 
 /* ---------- fatura lateral (assinatura) ---------- */
@@ -393,6 +395,27 @@ html { scroll-padding-top: 24px; }
 /* ---------- tablet / celular ---------- */
 @media (max-width: 1040px) {
   .cab__link { display: none; } /* com 6 itens o menu não cabe ao lado da logo */
+  .cab__nav { margin-left: auto; }
+  .cab__burger {
+    display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+    width: 44px; height: 44px; margin-left: 8px; padding: 0; border: 0; border-radius: 10px; cursor: pointer;
+    background: transparent; color: var(--grafite);
+  }
+  .cab__burger span { display: block; width: 22px; height: 2px; border-radius: 1px; background: currentColor; transition: transform 0.25s ease, opacity 0.2s ease; }
+  .cab__burger:focus-visible { outline: 3px solid var(--ouro); outline-offset: 2px; }
+  .cab__burger.is-aberto span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .cab__burger.is-aberto span:nth-child(2) { opacity: 0; }
+  .cab__burger.is-aberto span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .cab__menu {
+    position: absolute; top: calc(100% + 8px); left: 0; right: 0;
+    flex-direction: column; padding: 8px;
+    background: rgba(246, 241, 231, 0.98); backdrop-filter: blur(10px);
+    border-radius: 14px; box-shadow: 0 12px 32px rgba(22, 25, 29, 0.18);
+  }
+  .cab__menu:not([hidden]) { display: flex; }
+  .cab__menu a { padding: 14px 16px; border-radius: 10px; font-size: 18px; font-weight: 500; text-decoration: none; color: var(--grafite); }
+  .cab__menu a + a { border-top: 1px solid var(--linha); border-top-left-radius: 0; border-top-right-radius: 0; }
+  .cab__menu a.is-ativo { background: rgba(227, 169, 24, 0.22); }
 }
 
 @media (max-width: 1100px) {
@@ -469,6 +492,7 @@ html { scroll-padding-top: 24px; }
 .fx-reduzido .faixa__item--copia { display: none; }
 .fx-reduzido .faixa__pista { -webkit-mask-image: none; mask-image: none; }
 @media (prefers-reduced-motion: reduce) {
+  .cab__burger span { transition: none; }
   .faixa__trilho { animation: none; width: auto; flex-wrap: wrap; }
   .faixa__item--copia { display: none; }
   .faixa__pista { -webkit-mask-image: none; mask-image: none; }

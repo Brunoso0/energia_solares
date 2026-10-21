@@ -151,6 +151,18 @@ const MENU = [
 
 function Cabecalho() {
   const [ativo, setAtivo] = useState("");
+  const [aberto, setAberto] = useState(false); // menu hambúrguer (celular e tablet)
+  const cab = useRef(null);
+
+  // fecha com Esc ou com um toque fora do cabeçalho
+  useEffect(() => {
+    if (!aberto) return;
+    const esc = (e) => e.key === "Escape" && setAberto(false);
+    const fora = (e) => cab.current && !cab.current.contains(e.target) && setAberto(false);
+    window.addEventListener("keydown", esc);
+    document.addEventListener("pointerdown", fora);
+    return () => { window.removeEventListener("keydown", esc); document.removeEventListener("pointerdown", fora); };
+  }, [aberto]);
 
   // destaca no menu a seção que está no meio da tela
   useEffect(() => {
@@ -169,7 +181,7 @@ function Cabecalho() {
   }, []);
 
   return (
-    <header className="cab">
+    <header className="cab" ref={cab}>
       <a href="#topo" className="cab__logo" aria-label="Solares Energia Corporativa">
         <img src="/logo.png" alt="Solares Energia Corporativa" />
       </a>
@@ -179,7 +191,26 @@ function Cabecalho() {
             {rotulo}
           </a>
         ))}
-        <a href="#simular" className="botao botao--pequeno">Simular economia</a>
+        <a href="#simular" className="botao botao--pequeno" onClick={() => setAberto(false)}>Simular economia</a>
+      </nav>
+      <button
+        type="button"
+        className={`cab__burger ${aberto ? "is-aberto" : ""}`}
+        aria-label={aberto ? "Fechar menu" : "Abrir menu"}
+        aria-expanded={aberto}
+        aria-controls="menu-mobile"
+        onClick={() => setAberto((v) => !v)}
+      >
+        <span aria-hidden="true" />
+        <span aria-hidden="true" />
+        <span aria-hidden="true" />
+      </button>
+      <nav id="menu-mobile" className={`cab__menu ${aberto ? "is-aberto" : ""}`} aria-label="Seções do site" hidden={!aberto}>
+        {MENU.map(([id, rotulo]) => (
+          <a key={id} href={`#${id}`} className={ativo === id ? "is-ativo" : ""} onClick={() => setAberto(false)}>
+            {rotulo}
+          </a>
+        ))}
       </nav>
     </header>
   );
