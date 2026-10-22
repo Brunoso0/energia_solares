@@ -92,12 +92,14 @@ p { margin: 0; }
 .cab__nav { flex: 1; display: flex; align-items: center; gap: 24px; margin-left: 40px; } /* links junto da logo, botão no extremo direito */
 .cab__nav .botao { margin-left: auto; }
 .cab__link {
+  white-space: nowrap;
   font-size: 15px; font-weight: 500; text-decoration: none; padding: 6px 0;
   background: linear-gradient(var(--ouro), var(--ouro)) left bottom / 0 3px no-repeat;
   transition: background-size 0.3s ease;
 }
 .cab__link:hover, .cab__link.is-ativo { background-size: 100% 3px; }
-/* menu hambúrguer: só aparece onde os links somem (até 1040px) */
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+/* menu hambúrguer: só aparece onde os links somem (até 1180px) */
 .cab__burger, .cab__menu { display: none; }
 html { scroll-padding-top: 24px; }
 
@@ -345,6 +347,8 @@ html { scroll-padding-top: 24px; }
 .rodape--escuro { background: var(--grafite); color: var(--fundo); border-top: 1px solid rgba(246, 241, 231, 0.16); }
 /* as duas empresas juntas: no desktop uma abaixo da outra, no celular lado a lado */
 .rodape__logos { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
+.rodape__logos a { display: block; line-height: 0; border-radius: 6px; }
+.rodape__logos a:focus-visible { outline: 3px solid var(--ouro); outline-offset: 4px; }
 .rodape__logo-energia { height: 72px; width: auto; }
 .rodape__logo-incorp { height: 104px; width: auto; }
 .rodape a { text-underline-offset: 4px; }
@@ -393,8 +397,8 @@ html { scroll-padding-top: 24px; }
 .fim__form .nota { color: rgba(246, 241, 231, 0.7); }
 
 /* ---------- tablet / celular ---------- */
-@media (max-width: 1040px) {
-  .cab__link { display: none; } /* com 6 itens o menu não cabe ao lado da logo */
+@media (max-width: 1180px) {
+  .cab__link { display: none; } /* com 7 itens o menu não cabe ao lado da logo */
   .cab__nav { margin-left: auto; }
   .cab__burger {
     display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;

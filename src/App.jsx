@@ -149,6 +149,9 @@ const MENU = [
   ["parceiro", "Seja parceiro"],
 ];
 
+// destino externo (outra empresa do grupo): abre em nova aba
+const LINK_VILA = { rotulo: "Vila Araponga", href: "https://solaresincorporadora.com.br/" };
+
 function Cabecalho() {
   const [ativo, setAtivo] = useState("");
   const [aberto, setAberto] = useState(false); // menu hambúrguer (celular e tablet)
@@ -191,6 +194,9 @@ function Cabecalho() {
             {rotulo}
           </a>
         ))}
+        <a href={LINK_VILA.href} className="cab__link cab__link--externo" target="_blank" rel="noopener noreferrer">
+          {LINK_VILA.rotulo}<span aria-hidden="true"> ↗</span><span className="sr-only"> (Solares Incorporadora, abre em nova aba)</span>
+        </a>
         <a href="#simular" className="botao botao--pequeno" onClick={() => setAberto(false)}>Simular economia</a>
       </nav>
       <button
@@ -211,6 +217,9 @@ function Cabecalho() {
             {rotulo}
           </a>
         ))}
+        <a href={LINK_VILA.href} className="cab__menu-externo" target="_blank" rel="noopener noreferrer" onClick={() => setAberto(false)}>
+          {LINK_VILA.rotulo}<span aria-hidden="true"> ↗</span><span className="sr-only"> (Solares Incorporadora, abre em nova aba)</span>
+        </a>
       </nav>
     </header>
   );
@@ -716,20 +725,24 @@ function Rodape() {
   return (
     <footer className={`rodape ${claras ? "rodape--escuro" : ""}`}>
       <div className="rodape__logos">
-        <img
-          className="rodape__logo-energia"
-          src={claras ? "/logo-claro.png" : "/logo.png"}
-          width="611"
-          height="400"
-          alt="Solares Energia Corporativa"
-        />
-        <img
-          className="rodape__logo-incorp"
-          src={claras ? "/logo-completo-claro.png" : "/logo-completo.png"}
-          width="1236"
-          height="960"
-          alt="Solares Incorporadora"
-        />
+        <a href="https://www.solarescorporativa.com.br/" target="_blank" rel="noopener noreferrer" aria-label="Solares Energia Corporativa (abre o site em nova aba)">
+          <img
+            className="rodape__logo-energia"
+            src={claras ? "/logo-claro.png" : "/logo.png"}
+            width="611"
+            height="400"
+            alt="Solares Energia Corporativa"
+          />
+        </a>
+        <a href="https://solaresincorporadora.com.br/" target="_blank" rel="noopener noreferrer" aria-label="Solares Incorporadora (abre o site em nova aba)">
+          <img
+            className="rodape__logo-incorp"
+            src={claras ? "/logo-completo-claro.png" : "/logo-completo.png"}
+            width="1236"
+            height="960"
+            alt="Solares Incorporadora"
+          />
+        </a>
       </div>
       <div>
         <p>Energia renovável, planejamento e atendimento especializado.</p>
