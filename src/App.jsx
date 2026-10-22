@@ -150,7 +150,7 @@ const MENU = [
 ];
 
 // destino externo (outra empresa do grupo): abre em nova aba
-const LINK_VILA = { rotulo: "Vila Araponga", href: "https://solaresincorporadora.com.br/" };
+const LINK_VILA = { rotulo: "Sustentabilidade", href: "https://solaresincorporadora.com.br/" };
 
 function Cabecalho() {
   const [ativo, setAtivo] = useState("");
